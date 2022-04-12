@@ -1,13 +1,13 @@
 package dev.colin.data;
 
 import dev.colin.entities.Class;
-import dev.colin.utilities.ArrayList;
-import dev.colin.utilities.ConnectionUtil;
-import dev.colin.utilities.list;
+import dev.colin.utilities.*;
 
 import java.sql.*;
 
 public class ClassDAOPostgresImpl implements classDAO{
+
+    // list of all classes that are open
     @Override
     public list<Class> getOpenClasses() {
 
@@ -34,10 +34,13 @@ public class ClassDAOPostgresImpl implements classDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message, LogLevel.Error);
             return null;
         }
     }
 
+    // list of all closed classes
     @Override
     public list<Class> getClosedClasses() {
         try {
@@ -63,10 +66,13 @@ public class ClassDAOPostgresImpl implements classDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return null;
         }
     }
 
+    // set class to open
     @Override
     public boolean openClass(int classId) {
 
@@ -82,11 +88,14 @@ public class ClassDAOPostgresImpl implements classDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return false;
         }
 
     }
 
+    // set class to closed
     @Override
     public boolean closeClass(int classId) {
         try {
@@ -101,13 +110,15 @@ public class ClassDAOPostgresImpl implements classDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return false;
         }
     }
 
+    // create a new class
     @Override
     public int addClass(Class newClass) {
-
 
         try {
             Connection conn = ConnectionUtil.createConnection();
@@ -131,11 +142,14 @@ public class ClassDAOPostgresImpl implements classDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return 0;
         }
 
     }
 
+    // list of classes student is registered for
     @Override
     public list<Class> userGetClasses(int userId) {
 
@@ -168,11 +182,15 @@ public class ClassDAOPostgresImpl implements classDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return null;
         }
 
     }
 
+    // update class information
+    // name/description
     @Override
     public boolean updateClass(Class updatedClass) {
 
@@ -193,6 +211,8 @@ public class ClassDAOPostgresImpl implements classDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return false;
         }
 

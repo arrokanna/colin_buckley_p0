@@ -1,17 +1,15 @@
 package dev.colin.data;
 
 import dev.colin.entities.User;
-import dev.colin.utilities.ArrayList;
-import dev.colin.utilities.ConnectionUtil;
-import dev.colin.utilities.list;
+import dev.colin.utilities.*;
 
 import java.sql.*;
 
 public class UserDAOPostgresImpl implements userDAO{
 
+    // get user information by id
     @Override
     public User getUserById(int UserId) {
-
 
         try {
             Connection conn = ConnectionUtil.createConnection();
@@ -34,12 +32,17 @@ public class UserDAOPostgresImpl implements userDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message, LogLevel.Error);
             return null;
 
         }
 
     }
 
+    // create user with fields
+    // creates a student user
+    // username/password/first name/last name
     @Override
     public User createUser(String username, String password, String firstName, String lastName) {
 
@@ -70,11 +73,14 @@ public class UserDAOPostgresImpl implements userDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return null;
         }
 
     }
 
+    //overloaded create use to include type if creating an admin user
     @Override
     public User createUser(String username, String password, String firstName, String lastName, int type) {
         if (type > 0 && type < 3) {
@@ -106,6 +112,8 @@ public class UserDAOPostgresImpl implements userDAO{
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                String message = e.getMessage();
+                Logger.log(message,LogLevel.Error);
                 return null;
             }
 
@@ -114,6 +122,7 @@ public class UserDAOPostgresImpl implements userDAO{
         }
     }
 
+    //check if a username exists
     @Override
     public boolean usernameExists(String username) {
 
@@ -136,11 +145,14 @@ public class UserDAOPostgresImpl implements userDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return true;
         }
 
     }
 
+    //get user id using username + password
     @Override
     public int login(String username, String password) {
 
@@ -165,12 +177,15 @@ public class UserDAOPostgresImpl implements userDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return 0;
 
         }
 
     }
 
+    // list of user registered to a class
     @Override
     public list<User> getUsersInClass(int classId) {
         try {
@@ -202,12 +217,15 @@ public class UserDAOPostgresImpl implements userDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return null;
 
         }
 
     }
 
+    // add student to class
     @Override
     public boolean addStudentToClass(int classId, int userId) {
         try {
@@ -222,10 +240,8 @@ public class UserDAOPostgresImpl implements userDAO{
             ResultSet rs = ps.getGeneratedKeys();
 
             if (rs.next()) {
-                //System.out.println("ribbit");
                 return true;
             } else {
-                //System.out.println("Moo");
                 return false;
             }
 
@@ -233,12 +249,14 @@ public class UserDAOPostgresImpl implements userDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
-            //System.out.println("Test");
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return false;
 
         }
     }
 
+    // remove student from class
     @Override
     public boolean removeStudentFromClass(int studentId, int classId) {
 
@@ -257,11 +275,15 @@ public class UserDAOPostgresImpl implements userDAO{
 
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return false;
         }
 
     }
 
+    // overloaded
+    // remove all students from a class
     @Override
     public boolean removeStudentFromClass(int classId) {
 
@@ -277,6 +299,8 @@ public class UserDAOPostgresImpl implements userDAO{
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            String message = e.getMessage();
+            Logger.log(message,LogLevel.Error);
             return false;
         }
 

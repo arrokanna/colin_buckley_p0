@@ -2,11 +2,13 @@ package dev.colin.entities;
 
 public class Class {
 
+    // set default variables
     private int id;
     private String name;
     private String description;
     private int open;
 
+    // class constructors
     public Class(){
 
     }
@@ -18,6 +20,7 @@ public class Class {
         this.open = open;
     }
 
+    // getters and setters
     public int getId() {
         return id;
     }

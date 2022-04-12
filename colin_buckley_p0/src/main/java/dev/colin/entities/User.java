@@ -1,6 +1,7 @@
 package dev.colin.entities;
 
 public class User {
+    // user variables
     private int id;
     private String username;
     private String password;
@@ -8,6 +9,7 @@ public class User {
     private String lastName;
     private int type;
 
+    // user constructors
     public User() {
 
     }
@@ -21,6 +23,7 @@ public class User {
         this.type = type;
     }
 
+    // user getters and setters
     public int getId() {
         return id;
     }
